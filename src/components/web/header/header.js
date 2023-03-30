@@ -1,10 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-// import { MdOutlineNotificationsNone } from "react-icons/md";
-// import { FiRefreshCcw, FiUser } from "react-icons/fi";
 
 const Header = () => {
-  // const iconsSize = 28;
-
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerSection}>
@@ -16,15 +12,9 @@ const Header = () => {
             <Text>BUSCADOR</Text>
           </View>
           <View style={styles.userHeaderSection}>
-            <View style={styles.iconContainer}>
-              {/* <FiRefreshCcw size={iconsSize} /> */}
-            </View>
-            <View style={styles.iconContainer}>
-              {/* <MdOutlineNotificationsNone size={iconsSize} /> */}
-            </View>
-            <View style={styles.iconContainer}>
-              {/* <FiUser size={iconsSize} /> */}
-            </View>
+            <View style={styles.iconContainer}></View>
+            <View style={styles.iconContainer}></View>
+            <View style={styles.iconContainer}></View>
           </View>
         </View>
       </View>
@@ -34,6 +24,8 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
+    backgroundColor: "green",
+    paddingVertical: 25,
   },
   headerSection: {
     flexDirection: "row",
@@ -57,7 +49,7 @@ const styles = StyleSheet.create({
 
   iconContainer: {
     padding: 10,
-    // margin: "3px",
+    margin: 3,
   },
 });
 

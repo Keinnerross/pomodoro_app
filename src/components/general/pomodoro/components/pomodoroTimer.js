@@ -8,8 +8,6 @@ import { View, Text, StyleSheet } from "react-native";
 
 // import { context } from "../context/store";
 
-import ProgressBar from "./progressBar";
-
 const PomoTimer = () => {
   // const { time, setTime, isActive } = useContext(context);
   const [time, setTime] = useState(30);
@@ -61,7 +59,6 @@ const PomoTimer = () => {
         {/* <View style={styles.pomoBarContainer}>
           <ProgressBar />
         </View> */}
-        <ProgressBar time={time} />
       </View>
     </>
   );

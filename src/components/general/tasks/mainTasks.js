@@ -7,19 +7,17 @@ const MainTasks = () => {
       <TaskCard />
       <TaskCard />
       <TaskCard />
-      <TaskCard />
-
-      <TaskCard />
-
-      <TaskCard />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainTasksContainer: {
+    maxWidth: "100%",
     flexWrap: "wrap",
     flexDirection: "row",
+    gap: 19,
+    height: "100%",
   },
 });
 

@@ -5,6 +5,8 @@ import MainPomodoro from "../general/pomodoro/mainPomodoro";
 import MainNews from "../general/news/mainNews";
 import MainTasks from "../general/tasks/mainTasks";
 import MainHabits from "../general/habits/mainHabits";
+import Greeting from "../general/others/greeting";
+
 const DashboardTemplate = () => {
   return (
     <View>
@@ -20,7 +22,7 @@ const DashboardTemplate = () => {
               </View>
               <View style={styles.appGadgetsContainer}>
                 <View style={styles.appGadgetsSection}>
-                  <Text>Hello</Text>
+                  <Greeting />
                   <View style={styles.PomoNewsContainer}>
                     <MainPomodoro />
                     <MainNews />
@@ -43,8 +45,8 @@ const DashboardTemplate = () => {
 
 const styles = StyleSheet.create({
   bgDashboard: {
-    width: "100%",
-    height: "100%",
+    width: "100vw ",
+    height: "100vh",
   },
   bgSection: {
     flexDirection: "row",
@@ -53,23 +55,38 @@ const styles = StyleSheet.create({
   },
   sidebarContainer: {
     width: "4%",
-    height: "100%",
   },
   appModuleContainer: {
     width: "96%",
-    backgroundColor: "green",
-    alignItems: "center",
+    backgroundColor: "lightblue",
+    paddingHorizontal: 80,
   },
   appModuleSection: {
-    width: "90%",
-    backgroundColor: "pink",
+    minWidth: "90%",
+    height: "100%" /*Revisar */,
   },
   PomoNewsContainer: {
+    width: "100%",
     justifyContent: "space-between",
     flexDirection: "row",
   },
+
   appGadgetsContainer: {
+    maxWidth: "100%",
     flexDirection: "row",
+  },
+
+  appGadgetsSection: {
+    width: "72%",
+  },
+  TasksViewContainer: {
+    width: "100%",
+    backgroundColor: "brown",
+    marginTop: 20,
+  },
+  HabitsViewContainer: {
+    width: "26%",
+    marginLeft: "2%",
   },
 });
 

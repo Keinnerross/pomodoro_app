@@ -13,9 +13,9 @@ const MainHabits = () => {
 
 const styles = StyleSheet.create({
   MainHabitsContainer: {
+    width: "100%",
     boxSizing: "content-box",
     backgroundColor: "gray",
-    // marginLeft: "1%",
   },
 });
 

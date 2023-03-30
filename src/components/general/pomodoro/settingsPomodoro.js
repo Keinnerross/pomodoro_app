@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Picker } from "@react-native-picker/picker";
-
 const SettingsPomodoro = () => {
   return (
     <View style={styles.settingMain}>
@@ -58,16 +56,16 @@ const SettingsPomodoro = () => {
         </View>
         <View style={styles.valuePomos}>
           <Text>Sound Setting</Text>
-          <Picker
+          <View
             // selectedValue={changeSound}
             // onValueChange={(value) => changeSound(value)}
             style={styles.picker}
           >
-            <Picker.Item label="Epic 1" value="1" />
-            <Picker.Item label="Epic 2" value="2" />
-            <Picker.Item label="Epic 3" value="3" />
-            <Picker.Item label="Clasic Alarm" value="0" />
-          </Picker>
+            <TextInput label="Epic 1" value="1" />
+            <TextInput label="Epic 2" value="2" />
+            <TextInput label="Epic 3" value="3" />
+            <TextInput label="Clasic Alarm" value="0" />
+          </View>
         </View>
         <TouchableOpacity
         // onPress={updateSetting}
