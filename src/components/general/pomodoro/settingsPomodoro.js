@@ -5,8 +5,19 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { useEffect, useState } from "react";
 
-const SettingsPomodoro = () => {
+const SettingsPomodoro = ({ updateSetting }) => {
+  const [inputValues, setInputValues] = useState({
+    pomodoro: 25,
+    short: 5,
+    long: 15,
+  });
+
+  useEffect(() => {
+    updateSetting(inputValues);
+  }, []);
+
   return (
     <View style={styles.settingMain}>
       <View style={styles.settingContainer}>
@@ -22,36 +33,36 @@ const SettingsPomodoro = () => {
         <View style={styles.valuePomos}>
           <Text>Pomodoro</Text>
           <TextInput
-            // defaultValue={pomoSetting}
             style={styles.input}
-            // onChangeText={(text) => {
-            //   setInputValue({ ...inputValue, pomodoro: text });
-            //   console.log(inputValue);
-            // }}
+            defaultValue={25}
+            onChangeText={(text) => {
+              setInputValues({ ...inputValues, pomodoro: text });
+              console.log(inputValues.pomodoro);
+            }}
           />
         </View>
         <View style={styles.valuePomos}>
           <Text>Short Break</Text>
           <TextInput
-            // defaultValue={shortBreak}
+            defaultValue={5}
             style={styles.input}
             keyboardType="numeric"
-            // onChangeText={(text) => {
-            //   setInputValue({ ...inputValue, short: text });
-            //   console.log(inputValue);
-            // }}
+            onChangeText={(text) => {
+              setInputValues({ ...inputValues, short: text });
+              console.log(inputValues.short);
+            }}
           />
         </View>
         <View style={styles.valuePomos}>
           <Text>Long Break</Text>
           <TextInput
-            // defaultValue={longBreak}
+            defaultValue={15}
             style={styles.input}
             keyboardType="numeric"
-            // onChangeText={(text) => {
-            //   setInputValue({ ...inputValue, long: text });
-            //   console.log(inputValue);
-            // }}
+            onChangeText={(text) => {
+              setInputValues({ ...inputValues, long: text });
+              console.log(inputValues.long);
+            }}
           />
         </View>
         <View style={styles.valuePomos}>
@@ -67,9 +78,7 @@ const SettingsPomodoro = () => {
             <TextInput label="Clasic Alarm" value="0" />
           </View>
         </View>
-        <TouchableOpacity
-        // onPress={updateSetting}
-        >
+        <TouchableOpacity onPress={() => updateSetting(inputValues)}>
           <Text style={styles.doneButton}>DONE</Text>
         </TouchableOpacity>
       </View>
@@ -79,14 +88,14 @@ const SettingsPomodoro = () => {
 
 const styles = StyleSheet.create({
   settingMain: {
-    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 2,
+    zIndex: 50,
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
   settingContainer: {
     backgroundColor: "#fff",

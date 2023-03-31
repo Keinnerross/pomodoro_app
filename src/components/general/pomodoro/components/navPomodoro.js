@@ -1,43 +1,24 @@
-import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-// import { context } from "../context/store";
 
-const NavPomodoro = () => {
-  //   const { setTime } = useContext(context);
-  //   const { pomoSetting } = useContext(context);
-  //   const { shortBreak } = useContext(context);
-  //   const { longBreak } = useContext(context);
-  //   const { pomoSession, setPomoSession } = useContext(context);
-  //   const { setToggleSetting } = useContext(context);
-
-  //   useEffect(() => {
-  //     if (pomoSession == "Pomodoro") {
-  //       setTime(pomoSetting * 60);
-  //     } else if (pomoSession == "Short") {
-  //       setTime(shortBreak * 60);
-  //     } else if (pomoSession == "Long") {
-  //       setTime(longBreak * 60);
-  //     }
-  //   }, [pomoSession, pomoSetting, shortBreak, longBreak]);
-
+const NavPomodoro = ({ updatePomoSession }) => {
   return (
     <View style={styles.navPomodoroContainer}>
       <TouchableOpacity
         style={[styles.navItem]}
-        onPress={() => setPomoSession("Pomodoro")}
+        onPress={() => updatePomoSession("Pomodoro")}
       >
         <Text style={styles.navText}>Pomo</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.navItem]}
-        onPress={() => setPomoSession("Short")}
+        onPress={() => updatePomoSession("Short")}
       >
         <Text style={styles.navText}>Short</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.navItem]}
-        onPress={() => setPomoSession("Long")}
+        onPress={() => updatePomoSession("Long")}
       >
         <Text style={styles.navText}>Long</Text>
       </TouchableOpacity>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import NavPomodoro from "./components/navPomodoro";
 import ButtonsPomo from "./components/buttonsPomodoro";
@@ -7,29 +7,104 @@ import CyclePomo from "./components/cyclePomo";
 import ProgressBar from "./components/progressBar";
 import SettingsPomodoro from "./settingsPomodoro";
 
-/*Pomodoro Variables*/
+const MainPomodoro = ({ settingConfig }) => {
+  /*Pomodoro Variables*/
 
-const [time, setTime] = useState(300);
-const [isActive, setIsActive] = useState(false);
-const [timeId, setTimeId] = useState(0);
+  const [time, setTime] = useState(1500);
+  const [isActive, setIsActive] = useState(false);
+  const [timeId, setTimeId] = useState(0);
+  const [pomoValue, setPomoValue] = useState(25);
+  const [shortValue, setShortValue] = useState(5);
+  const [longValue, setLongValue] = useState(15);
+  const [pomoSession, setPomoSession] = useState("Pomodoro");
+  const [barValue, setBarValue] = useState(); /*Corregir */
 
-/*Pomodoro Functions */
+  /*-------------------------*/
+  /*   Pomodoro Functions   */
+  /*-----------------------*/
 
-const showTime = (time) => {
-  const min = parseInt(time / 60);
-  const sec = parseInt(time % 60);
-  return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
-};
+  /******** Render Pomodoro********/
 
-const MainPomodoro = () => {
+  useEffect(() => {
+    setPomoValue(settingConfig.pomodoro);
+    setShortValue(settingConfig.short);
+    setLongValue(settingConfig.long);
+  }, [settingConfig]);
+
+  useEffect(() => {
+    let runningPomo = null;
+
+    if (isActive) {
+      runningPomo = setInterval(() => {
+        setTime((time) => time - 1);
+      }, 1000);
+      setTimeId(runningPomo);
+    } else {
+      clearInterval(timeId);
+    }
+    console.log("effect");
+  }, [isActive]);
+
+  /************** Navigation **************/
+
+  /** Render Navigation **/
+
+  useEffect(() => {
+    if (pomoSession == "Pomodoro") {
+      setTime(pomoValue * 60);
+      setBarValue(pomoValue);
+    } else if (pomoSession == "Short") {
+      setTime(shortValue * 60);
+      setBarValue(shortValue);
+    } else if (pomoSession == "Long") {
+      setTime(longValue * 60);
+      setBarValue(longValue);
+    }
+  }, [pomoSession, pomoValue, shortValue, longValue]);
+
+  /* Update Pomodoro Session */
+
+  const updatePomoSession = (session) => {
+    setPomoSession(session);
+  };
+
+  /*********Buttons Functions ************/
+
+  const playPomo = () => {
+    setIsActive(!isActive);
+  };
+
+  const restPomo = () => {
+    setIsActive(false);
+    if (pomoSession == "Pomodoro") {
+      setTime(pomoValue * 60);
+    } else if (pomoSession == "Short") {
+      setTime(shortValue * 60);
+    } else if (pomoSession == "Long") {
+      setTime(longValue * 60);
+    }
+  };
+
+  const stopPomo = () => {
+    setIsActive(false);
+    setTime(pomoValue * 60);
+
+    /*Agergar el reincio de los ciclos del pomodoro */
+  };
+
+  /*********** BARRA DE PROGRESO******** */
+
   return (
     <View style={styles.pomodoroMainContainer}>
-      <SettingsPomodoro />
-      <NavPomodoro />
-      <PomoTimer />
-      <ButtonsPomo />
+      <NavPomodoro updatePomoSession={updatePomoSession} />
+      <PomoTimer time={time} />
+      <ButtonsPomo
+        playPomo={playPomo}
+        restPomo={restPomo}
+        stopPomo={stopPomo}
+      />
       <CyclePomo />
-      <ProgressBar time={100} />
+      <ProgressBar time={time} barValue={barValue} />
     </View>
   );
 };

@@ -2,13 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 // import { context } from "../context/store";
 
-const ProgressBar = ({ time }) => {
+const ProgressBar = ({ barValue, time }) => {
   //   const { time } = useContext(context);
   //   const { pomoSetting } = useContext(context);
   //   const { shortBreak } = useContext(context);
   //   const { longBreak } = useContext(context);
   //   const { pomoSession } = useContext(context);
-  const [barValue, setBarValue] = useState(5); /*Corregir */
 
   // useEffect(() => {
   //   if (pomoSession == "Pomodoro") {
