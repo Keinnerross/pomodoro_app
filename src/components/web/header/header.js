@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
-
+import Icon from "react-native-vector-icons/Ionicons";
 const Header = () => {
+  const iconSize = 25;
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerSection}>
@@ -12,9 +14,23 @@ const Header = () => {
             <Text>BUSCADOR</Text>
           </View>
           <View style={styles.userHeaderSection}>
-            <View style={styles.iconContainer}></View>
-            <View style={styles.iconContainer}></View>
-            <View style={styles.iconContainer}></View>
+            <View style={styles.iconContainer}>
+              <Icon name="refresh" size={iconSize} color="white" />
+            </View>
+            <View style={styles.iconContainer}>
+              <Icon
+                name="notifications-outline"
+                size={iconSize}
+                color="white"
+              />
+            </View>
+            <View style={styles.iconContainer}>
+              <Icon
+                name="person-circle-outline"
+                size={iconSize}
+                color="white"
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -24,8 +40,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: "green",
-    paddingVertical: 25,
+    paddingVertical: 30,
   },
   headerSection: {
     flexDirection: "row",
@@ -43,7 +58,7 @@ const styles = StyleSheet.create({
   },
 
   userHeaderSection: {
-    paddingLeft: "30%",
+    paddingLeft: "20%",
     flexDirection: "row",
   },
 

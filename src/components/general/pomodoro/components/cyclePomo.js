@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-const CyclePomo = () => {
+const CyclePomo = ({ cyclePomo }) => {
   return (
     <View>
-      <Text>1</Text>
+      <Text>{cyclePomo}</Text>
     </View>
   );
 };

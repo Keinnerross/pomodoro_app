@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import SidebarNav from "./SidebarNav/sidebarNav";
 import Header from "./header/header";
 import MainPomodoro from "../general/pomodoro/mainPomodoro";
@@ -8,17 +8,16 @@ import MainTasks from "../general/tasks/mainTasks";
 import MainHabits from "../general/habits/mainHabits";
 import Greeting from "../general/others/greeting";
 import SettingsPomodoro from "../general/pomodoro/settingsPomodoro";
+import SelectTheme from "./SidebarNav/components/selectTheme";
+import { themes } from "../general/userTemplates/mainUserTemplates";
 
 const DashboardTemplate = () => {
+  const [settingPomoOpen, setSettingPomoOpen] = useState(false);
   const [settingResult, setSettingResult] = useState({
-    pomodoro: null,
-    short: null,
-    long: null,
+    pomodoro: 25,
+    short: 5,
+    long: 15,
   });
-
-  useEffect(() => {
-    console.log("quepeochamo");
-  }, [settingResult]);
 
   const updateSetting = (inputValues) => {
     setSettingResult({
@@ -28,14 +27,23 @@ const DashboardTemplate = () => {
       long: inputValues.long,
     });
   };
+
+  const ifOpenPomo = (value) => {
+    setSettingPomoOpen(value);
+  };
   return (
     <View>
       {/*Tengo pensado maejar todas las ventanas de configuracion desde el loyout de sea forma puedo pasar los parametros de setting de manera global y al componente pomodoro */}
-
-      <View style={styles.bgDashboard}>
+      <SelectTheme />
+      <ImageBackground
+        source={{
+          uri: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        }}
+        style={styles.bgDashboard}
+      >
         <View style={styles.bgSection}>
           <View style={styles.sidebarContainer}>
-            <SidebarNav />
+            <SidebarNav theme={themes} />
           </View>
           <View style={styles.appModuleContainer}>
             <View style={styles.appModuleSection}>
@@ -46,7 +54,10 @@ const DashboardTemplate = () => {
                 <View style={styles.appGadgetsSection}>
                   <Greeting />
                   <View style={styles.PomoNewsContainer}>
-                    <MainPomodoro settingConfig={settingResult} />
+                    <MainPomodoro
+                      ifOpen={ifOpenPomo}
+                      settingConfig={settingResult}
+                    />
                     <MainNews />
                   </View>
                   <View style={styles.TasksViewContainer}>
@@ -60,18 +71,22 @@ const DashboardTemplate = () => {
             </View>
           </View>
         </View>
-      </View>
-      <SettingsPomodoro updateSetting={updateSetting} />
+      </ImageBackground>
+      <SettingsPomodoro
+        closeSetting={ifOpenPomo}
+        ifOpen={settingPomoOpen}
+        updateSetting={updateSetting}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   bgDashboard: {
-    width: "100vw",
-    height: "100vh",
-    // width: "100%",
-    // height: "100%",
+    // width: "100vw",
+    // height: "100vh",
+    width: "100%",
+    height: "100%",
   },
   bgSection: {
     flexDirection: "row",
@@ -79,16 +94,14 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   sidebarContainer: {
-    width: "4%",
+    width: 62,
   },
   appModuleContainer: {
-    width: "96%",
-    backgroundColor: "lightblue",
+    flex: 1,
     paddingHorizontal: 80,
   },
   appModuleSection: {
     minWidth: "90%",
-    height: "100%" /*Revisar */,
   },
   PomoNewsContainer: {
     width: "100%",

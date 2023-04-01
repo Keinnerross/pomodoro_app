@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 
-const SettingsPomodoro = ({ updateSetting }) => {
+const SettingsPomodoro = ({ updateSetting, ifOpen, closeSetting  }) => {
   const [inputValues, setInputValues] = useState({
     pomodoro: 25,
     short: 5,
@@ -19,13 +19,11 @@ const SettingsPomodoro = ({ updateSetting }) => {
   }, []);
 
   return (
-    <View style={styles.settingMain}>
+    <View style={ifOpen ? styles.settingMain : { display: "none" }}>
       <View style={styles.settingContainer}>
         <View style={styles.titleCloseSetting}>
           <Text>Time Setting</Text>
-          <TouchableOpacity
-          //    onPress={settingShow}
-          >
+          <TouchableOpacity onPress={() => closeSetting(false)}>
             <Text>x</Text>
           </TouchableOpacity>
         </View>
@@ -37,7 +35,6 @@ const SettingsPomodoro = ({ updateSetting }) => {
             defaultValue={25}
             onChangeText={(text) => {
               setInputValues({ ...inputValues, pomodoro: text });
-              console.log(inputValues.pomodoro);
             }}
           />
         </View>
@@ -49,7 +46,6 @@ const SettingsPomodoro = ({ updateSetting }) => {
             keyboardType="numeric"
             onChangeText={(text) => {
               setInputValues({ ...inputValues, short: text });
-              console.log(inputValues.short);
             }}
           />
         </View>
@@ -61,7 +57,6 @@ const SettingsPomodoro = ({ updateSetting }) => {
             keyboardType="numeric"
             onChangeText={(text) => {
               setInputValues({ ...inputValues, long: text });
-              console.log(inputValues.long);
             }}
           />
         </View>
@@ -95,6 +90,8 @@ const styles = StyleSheet.create({
     zIndex: 50,
     alignItems: "center",
     justifyContent: "center",
+    position: "absolute",
+    backgroundColor: "black",
     flex: 1,
   },
   settingContainer: {

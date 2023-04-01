@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const NavPomodoro = ({ updatePomoSession }) => {
+const NavPomodoro = ({ updatePomoSession, ifOpen }) => {
   return (
     <View style={styles.navPomodoroContainer}>
       <TouchableOpacity
@@ -24,7 +24,7 @@ const NavPomodoro = ({ updatePomoSession }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.settingPomoButton}
-        // onPress={() => setToggleSetting(true)}
+        onPress={() => ifOpen(true)}
       >
         <Ionicons name="settings-outline" size={24} color="white" />
       </TouchableOpacity>

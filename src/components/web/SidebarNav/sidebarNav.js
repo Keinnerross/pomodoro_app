@@ -1,36 +1,64 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-// import { RxHamburgerMenu } from "react-icons/rx";
-// import { TbPaintFilled } from "react-icons/tb";
-// import { MdLanguage } from "react-icons/md";
-// import { BiHelpCircle } from "react-icons/bi";
-// import { AiFillSetting } from "react-icons/ai";
-// import { RiLogoutBoxRLine } from "react-icons/ri";
+import Icon from "react-native-vector-icons/Ionicons";
+const SidebarNav = ({ theme }) => {
+  const themeSelect = theme[0];
 
-const SidebarNav = () => {
-  // const iconSize = 25;
+  const configTheme = {
+    themeColor: themeSelect.themeColor,
+    iconSize: 25,
+    iconColor: themeSelect.iconColor,
+  };
 
   return (
-    <View style={styles.sidebarMain}>
+    <View
+      style={[styles.sidebarMain, { backgroundColor: configTheme.themeColor }]}
+    >
       <View style={styles.sidebarSection}>
         <View style={styles.navSection}>
-          <View style={styles.iconContainer}></View>
-          <View style={styles.iconContainer}>
-            {/* <TbPaintFilled size={iconSize} /> */}
-          </View>
           <TouchableOpacity style={styles.iconContainer}>
-            {/* <MdLanguage size={iconSize} /> */}
+            <Icon
+              name="menu"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
           </TouchableOpacity>
-          <View style={styles.iconContainer}>
-            {/* <BiHelpCircle size={iconSize} /> */}
-          </View>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon
+              name="brush"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon
+              name="globe"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon
+              name="help"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.settingSection}>
-          <View style={styles.iconContainer}>
-            {/* <AiFillSetting size={iconSize} /> */}
-          </View>
-          <View style={styles.iconContainer}>
-            {/* <RiLogoutBoxRLine size={iconSize} /> */}
-          </View>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon
+              name="settings"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon
+              name="log-out"
+              size={configTheme.iconSize}
+              color={configTheme.iconColor}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -41,7 +69,6 @@ const styles = StyleSheet.create({
   sidebarMain: {
     width: "100%",
     minHeight: "100%",
-    backgroundColor: "yellow",
   },
   sidebarSection: {
     alignItems: "center",

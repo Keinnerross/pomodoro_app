@@ -10,7 +10,7 @@ const Greeting = () => {
 
 const styles = StyleSheet.create({
   greetingContainer: {
-    paddingVertical: 20,
+    paddingBottom: 20,
   },
 });
 
