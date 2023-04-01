@@ -37,7 +37,7 @@ const DashboardTemplate = () => {
       <SelectTheme />
       <ImageBackground
         source={{
-          uri: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          uri: "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         }}
         style={styles.bgDashboard}
       >
@@ -83,10 +83,10 @@ const DashboardTemplate = () => {
 
 const styles = StyleSheet.create({
   bgDashboard: {
-    // width: "100vw",
-    // height: "100vh",
-    width: "100%",
-    height: "100%",
+    width: "100vw",
+    height: "100vh",
+    // width: "100%",
+    // height: "100%",
   },
   bgSection: {
     flexDirection: "row",
