@@ -1,6 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-const SidebarNav = ({ theme }) => {
+
+const SidebarNav = ({ theme, ifActive }) => {
   const themeSelect = theme[1];
 
   const configTheme = {
@@ -22,7 +23,10 @@ const SidebarNav = ({ theme }) => {
               color={configTheme.iconColor}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => ifActive()}
+          >
             <Icon
               name="brush"
               size={configTheme.iconSize}

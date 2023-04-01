@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 const Greeting = () => {
   return (
     <View style={styles.greetingContainer}>
-      <Text>Hello Warrior</Text>
+      <Text style={{ color: "white", fontSize: 22 }}>Welcome KeinnerRoss</Text>
     </View>
   );
 };

@@ -4,13 +4,15 @@ import { Text } from "react-native";
 import { View, Image, StyleSheet } from "react-native";
 import { wallpapers } from "../../../general/userTemplates/mainUserTemplates";
 
-const SelectTheme = () => {
+const SelectTheme = ({ isActive }) => {
   useEffect(() => {
     console.log(wallpapers[0].wallpaper);
   }, []);
 
+
+
   return (
-    <View style={styles.selectThemeContainer}>
+    <View style={isActive ? styles.selectThemeContainer : { display: "none" }}>
       <View style={styles.selectThemeSection}>
         <Text>Theme</Text>
         <View style={styles.customItemsSection}>

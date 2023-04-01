@@ -1,10 +1,10 @@
 import { View, StyleSheet, Text } from "react-native";
-
+import { themes } from "../userTemplates/mainUserTemplates";
 const MainNews = () => {
   return (
     <View style={styles.viewLevelContainer}>
       <View style={styles.settingLevelBtnSection}>
-        <Text>LEVEL 1</Text>
+        <Text style={{ color: "white" }}>LEVEL 1</Text>
       </View>
       {/* <BadgeLevel />
       <LevelNotice /> */}
@@ -14,7 +14,7 @@ const MainNews = () => {
 
 const styles = StyleSheet.create({
   viewLevelContainer: {
-    backgroundColor: "orange",
+    backgroundColor: themes[1].themeColor,
     width: "32%",
   },
 });
