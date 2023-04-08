@@ -5,7 +5,6 @@ import ButtonsPomo from "./components/buttonsPomodoro";
 import PomoTimer from "./components/pomodoroTimer";
 import CyclePomo from "./components/cyclePomo";
 import ProgressBar from "./components/progressBar";
-import SettingsPomodoro from "./settingsPomodoro";
 
 const MainPomodoro = ({ settingConfig, ifOpen }) => {
   /*Pomodoro Variables*/

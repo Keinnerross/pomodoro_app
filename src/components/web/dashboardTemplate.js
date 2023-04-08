@@ -29,6 +29,7 @@ const DashboardTemplate = () => {
       short: inputValues.short,
       long: inputValues.long,
     });
+    setSettingPomoOpen(false);
   };
 
   const ifOpenPomo = (value) => {
@@ -96,7 +97,6 @@ const DashboardTemplate = () => {
 const styles = StyleSheet.create({
   bgDashboard: {
     width: "100vw",
-    height: "100vh",
     // width: "100%",
     // height: "100%",
   },
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
   },
   TasksViewContainer: {
     width: "100%",
-    backgroundColor: "brown",
     marginTop: 20,
   },
   HabitsViewContainer: {

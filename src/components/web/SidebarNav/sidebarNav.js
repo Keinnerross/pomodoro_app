@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const SidebarNav = ({ theme, ifActive }) => {
+const SidebarNav = ({ theme, ifActive, }) => {
   const themeSelect = theme[1];
 
   const configTheme = {
@@ -9,6 +9,8 @@ const SidebarNav = ({ theme, ifActive }) => {
     iconSize: 25,
     iconColor: themeSelect.iconColor,
   };
+
+  /*En cuestion de los temas hay que ponerlos universales. */
 
   return (
     <View
