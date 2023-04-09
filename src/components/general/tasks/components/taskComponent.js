@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { themes } from "../../userTemplates/mainUserTemplates";
-const Task = ({ title, ifDone }) => {
+const Task = ({ title, ifDone, id }) => {
   const themeSelect = themes[1];
 
   const configTheme = {

@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyDBOA1tIRBKzypVTxmAJPmiKYIUmiTBHkE",
   authDomain: "pomodoro-4a4a3.firebaseapp.com",

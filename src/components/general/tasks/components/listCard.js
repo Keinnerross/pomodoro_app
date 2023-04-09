@@ -1,15 +1,20 @@
-import { useState } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { themes } from "../../userTemplates/mainUserTemplates";
 import Icon from "react-native-vector-icons/Ionicons";
 import Task from "./taskComponent";
-import { Button } from "react-native-web";
-import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../firebase";
+import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
+import uuid from "react-native-uuid";
 
 const ListCard = ({ id, listName }) => {
-  let taskArr = ["tarea1", "tarea2", "tarea3"];
-
+  /*Configuracion Theme */
   const themeSelect = themes[1];
   const configTheme = {
     themeColor: themeSelect.themeColor,
@@ -18,37 +23,55 @@ const ListCard = ({ id, listName }) => {
   };
   /*Los temas estan puestos aqui para poder testear los estilos, sin embargo hay que ponerlos de forma atomatica relacionadose con la sidebar */
 
-  const [values, setValues] = useState("");
+  /*Controles de lista y tareas */
 
+  const [values, setValues] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  /*Funcion de input del titulo de la lista */
   const handleInputChange = (e) => {
     const { value } = e.target;
     setValues(value);
     addList(values);
   };
 
+  /*Funcion de input del titulo de la Tarea */
   const handleInputTask = (e) => {
     const { value } = e.target;
     setValues(value);
     console.log(values);
   };
 
-  const addNewTask = async (idtask, task) => {
+  /*Función Obtener Tareas */
+  const getTasks = (idList) => {
+    onSnapshot(doc(db, "lists", idList), (query) => {
+      const tareas = query.data().tasks;
+      setTasks(tareas);
+    });
+  };
+
+  /*Función Agregar nueva tarea. */
+  const addNewTask = async (idList, tasks) => {
     try {
-      const docRef = doc(db, "lists", idtask);
-      await updateDoc(
-        docRef,
-        {
-          tasks: firebase.firestore.FieldValue.arrayUnion(task), // Agregamos la tarea a la lista
-        },
-        { merge: true }
-      );
+      const newTask = {
+        id: uuid.v4(),
+        taskName: tasks,
+        done: false,
+      };
+      const docRef = doc(db, "lists", idList);
+      await updateDoc(docRef, {
+        tasks: arrayUnion(newTask), // Agregamos la tarea a la lista
+      });
       console.log("add task success");
-      getData();
-    } catch (e) {
-      console.error("Error adding document: ", e);
+      getTasks(idList);
+    } catch {
+      console.log("Algo salió mal");
     }
   };
 
+  useEffect(() => {
+    getTasks(id);
+  }, []);
   return (
     <View
       style={[
@@ -81,9 +104,18 @@ const ListCard = ({ id, listName }) => {
           />
           <Button onPress={() => addNewTask(id, values)}></Button>
         </View>
-        {taskArr.map((task, i) => (
-          <Task style={{ color: configTheme.iconColor }} title={task} key={i} />
-        ))}
+        {tasks.map((task, i) => {
+          console.log(task.id);
+          return (
+            <Task
+              style={{ color: configTheme.iconColor }}
+              id={task.id}
+              title={task.taskName}
+              ifDone={task.done}
+              key={i}
+            />
+          );
+        })}
       </View>
     </View>
   );
