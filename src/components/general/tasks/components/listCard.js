@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { themes } from "../../userTemplates/mainUserTemplates";
 import Icon from "react-native-vector-icons/Ionicons";
 import Task from "./taskComponent";
+import { Button } from "react-native-web";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase";
 
-const ListCard = ({ id, addOrEdit }) => {
+const ListCard = ({ id, listName }) => {
   let taskArr = ["tarea1", "tarea2", "tarea3"];
 
   const themeSelect = themes[1];
@@ -15,15 +18,35 @@ const ListCard = ({ id, addOrEdit }) => {
   };
   /*Los temas estan puestos aqui para poder testear los estilos, sin embargo hay que ponerlos de forma atomatica relacionadose con la sidebar */
 
-  const [values, setValues] = useState({
-    id: "",
-    titleList: "",
-  });
+  const [values, setValues] = useState("");
 
   const handleInputChange = (e) => {
     const { value } = e.target;
-    setValues({ ...values, id: id, titleList: value });
-    addOrEdit(values);
+    setValues(value);
+    addList(values);
+  };
+
+  const handleInputTask = (e) => {
+    const { value } = e.target;
+    setValues(value);
+    console.log(values);
+  };
+
+  const addNewTask = async (idtask, task) => {
+    try {
+      const docRef = doc(db, "lists", idtask);
+      await updateDoc(
+        docRef,
+        {
+          tasks: firebase.firestore.FieldValue.arrayUnion(task), // Agregamos la tarea a la lista
+        },
+        { merge: true }
+      );
+      console.log("add task success");
+      getData();
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
@@ -36,7 +59,7 @@ const ListCard = ({ id, addOrEdit }) => {
       <View style={styles.titleListSection}>
         <TextInput
           style={{ color: configTheme.iconColor, fontSize: 20 }}
-          defaultValue={"Lista"}
+          defaultValue={listName} /*Por corregir */
           onChange={handleInputChange}
         />
 
@@ -50,6 +73,14 @@ const ListCard = ({ id, addOrEdit }) => {
       </View>
 
       <View style={styles.taskListSection}>
+        <View style={styles.addTaskSection}>
+          <TextInput
+            style={{ color: configTheme.iconColor }}
+            defaultValue="Add a Task"
+            onChange={handleInputTask}
+          />
+          <Button onPress={() => addNewTask(id, values)}></Button>
+        </View>
         {taskArr.map((task, i) => (
           <Task style={{ color: configTheme.iconColor }} title={task} key={i} />
         ))}
@@ -61,7 +92,6 @@ const ListCard = ({ id, addOrEdit }) => {
 const styles = StyleSheet.create({
   TaskCardContainer: {
     width: "31%",
-    backgroundColor: "wh",
     padding: 15,
     marginBottom: "3%",
     borderRadius: 6,
@@ -71,6 +101,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
+  },
+
+  addTaskSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 export default ListCard;

@@ -1,16 +1,18 @@
 import { initializeApp } from "firebase/app";
-import "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD_Pxv8PozyeWnuMH2sPEvizIQDPMggH8c",
-  authDomain: "pomodoro-28395.firebaseapp.com",
-  databaseURL: "https://pomodoro-28395-default-rtdb.firebaseio.com",
-  projectId: "pomodoro-28395",
-  storageBucket: "pomodoro-28395.appspot.com",
-  messagingSenderId: "637753755178",
-  appId: "1:637753755178:web:6f8cb4d51a8b1db1136553",
-  measurementId: "G-9MSL8PVB84",
+  apiKey: "AIzaSyDBOA1tIRBKzypVTxmAJPmiKYIUmiTBHkE",
+  authDomain: "pomodoro-4a4a3.firebaseapp.com",
+  projectId: "pomodoro-4a4a3",
+  storageBucket: "pomodoro-4a4a3.appspot.com",
+  messagingSenderId: "365994415127",
+  appId: "1:365994415127:web:7ae01f454bd4b8151ef852",
+  measurementId: "G-LK89DXWE5W",
 };
 
-const firebase = initializeApp(firebaseConfig);
-export const db = firebase.firestore();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);

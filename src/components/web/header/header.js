@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     width: "100%",
     color: "gray",
     marginLeft: 5,
-    outlineWidth: 0,
   },
   userHeaderSection: {
     paddingLeft: 40,

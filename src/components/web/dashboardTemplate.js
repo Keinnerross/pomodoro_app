@@ -97,6 +97,7 @@ const DashboardTemplate = () => {
 const styles = StyleSheet.create({
   bgDashboard: {
     width: "100vw",
+    minHeight: "100vh",
     // width: "100%",
     // height: "100%",
   },
