@@ -10,10 +10,10 @@ import { themes } from "../../userTemplates/mainUserTemplates";
 import Icon from "react-native-vector-icons/Ionicons";
 import Task from "./taskComponent";
 import { db } from "../../../../../firebase";
-import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
+import { doc, getDocs, orderBy, collection, addDoc } from "firebase/firestore";
 import uuid from "react-native-uuid";
 
-const ListCard = ({ id, listName }) => {
+const ListCard = ({ idList, listName, updateList }) => {
   /*Configuracion Theme */
   const themeSelect = themes[1];
   const configTheme = {
@@ -28,50 +28,58 @@ const ListCard = ({ id, listName }) => {
   const [values, setValues] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  /*Funcion de input del titulo de la lista */
+  /*Funcion de input del titulo actualizacion del nombre de la lista */
   const handleInputChange = (e) => {
     const { value } = e.target;
-    setValues(value);
-    addList(values);
+    updateList(value, idList);
   };
 
   /*Funcion de input del titulo de la Tarea */
   const handleInputTask = (e) => {
     const { value } = e.target;
+    console.log(value);
     setValues(value);
-    console.log(values);
   };
 
   /*Función Obtener Tareas */
-  const getTasks = (idList) => {
-    onSnapshot(doc(db, "lists", idList), (query) => {
-      const tareas = query.data().tasks;
-      setTasks(tareas);
-    });
+  const getTasks = async (idList) => {
+    try {
+      const tasks = [];
+      const querySnapshot = await getDocs(
+        collection(db, "lists", idList, "tasks")
+      );
+      querySnapshot.forEach((doc) => {
+        tasks.push({ ...doc.data(), taskId: doc.id });
+      });
+      console.log(tasks);
+      const order = tasks.sort((x, y) => x.taskName.localeCompare(y.taskName));
+      setTasks(order);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   /*Función Agregar nueva tarea. */
   const addNewTask = async (idList, tasks) => {
     try {
       const newTask = {
-        id: uuid.v4(),
         taskName: tasks,
         done: false,
       };
       const docRef = doc(db, "lists", idList);
-      await updateDoc(docRef, {
-        tasks: arrayUnion(newTask), // Agregamos la tarea a la lista
-      });
-      console.log("add task success");
+      const tasksColl = collection(docRef, "tasks");
+      await addDoc(tasksColl, newTask);
       getTasks(idList);
-    } catch {
-      console.log("Algo salió mal");
+      console.log(`${newTask} se ha enviado con éxito`);
+    } catch (e) {
+      console.log("Algo salió mal", e);
     }
   };
 
   useEffect(() => {
-    getTasks(id);
+    getTasks(idList);
   }, []);
+
   return (
     <View
       style={[
@@ -102,17 +110,17 @@ const ListCard = ({ id, listName }) => {
             defaultValue="Add a Task"
             onChange={handleInputTask}
           />
-          <Button onPress={() => addNewTask(id, values)}></Button>
+          <Button onPress={() => addNewTask(idList, values)}></Button>
         </View>
         {tasks.map((task, i) => {
-          console.log(task.id);
           return (
             <Task
               style={{ color: configTheme.iconColor }}
-              id={task.id}
+              id={task.taskId}
               title={task.taskName}
               ifDone={task.done}
-              key={i}
+              idList={idList}
+              key={task.taskId}
             />
           );
         })}

@@ -1,7 +1,18 @@
 import { View, StyleSheet, Text } from "react-native";
 import ListCard from "./components/listCard";
+import DraggableFlatList from "react-native-draggable-flatlist";
 import AddListCard from "./components/addListCard";
-import { collection, getDocs, addDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  onSnapshot,
+  getDocs,
+  serverTimestamp,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useEffect, useState } from "react";
 
@@ -10,11 +21,13 @@ const MainTasks = () => {
 
   /*Functions Controllers List and Task */
 
+  /*Añadir lista */
   const addList = async (values) => {
     try {
-      const docRef = addDoc(collection(db, "lists"), {
+      const orderValue = lists.length + 1;
+      addDoc(collection(db, "lists"), {
         listName: values,
-        tasks: [],
+        order: orderValue,
       });
       getData();
       console.log("add or update success");
@@ -23,16 +36,33 @@ const MainTasks = () => {
     }
   };
 
+  /*Obtener Listas */
   const getData = async () => {
     const listsArr = [];
-    onSnapshot(collection(db, "lists"), (query) => {
-      query.forEach((doc) => {
-        console.log(doc.data());
-        listsArr.push({ ...doc.data(), id: doc.id });
+
+    const q = query(collection(db, "lists"), orderBy("order", "desc"));
+    const querySnapshot = await getDocs(q);
+    const lists = querySnapshot.docs.map((doc) =>
+      listsArr.push({ ...doc.data(), id: doc.id })
+    );
+
+    console.log(listsArr);
+    setLists(listsArr);
+  };
+
+  /*Actualizar Lista */
+
+  const updateList = async (newNameList, idList) => {
+    try {
+      const docRef = doc(db, "lists", idList);
+      await updateDoc(docRef, {
+        listName: newNameList, // Agregamos la tarea a la lista
       });
-      console.log(listsArr);
-      setLists(listsArr);
-    });
+      console.log("add task success");
+      getData();
+    } catch (e) {
+      console.log("Algo salió mal", e);
+    }
   };
 
   useEffect(() => {
@@ -43,9 +73,16 @@ const MainTasks = () => {
     <View style={styles.mainTasksContainer}>
       <View style={styles.mainTaskSection}>
         <AddListCard addList={addList} />
-        {lists.map((list) => (
-          <ListCard listName={list.listName} id={list.id} key={list.id} />
-        ))}
+        <DraggableFlatList>
+          {lists.map((list) => (
+            <ListCard
+              listName={list.listName}
+              idList={list.id}
+              key={list.id}
+              updateList={updateList}
+            />
+          ))}
+        </DraggableFlatList>
       </View>
     </View>
   );
