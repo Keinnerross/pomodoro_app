@@ -73,16 +73,15 @@ const MainTasks = () => {
     <View style={styles.mainTasksContainer}>
       <View style={styles.mainTaskSection}>
         <AddListCard addList={addList} />
-        <DraggableFlatList>
-          {lists.map((list) => (
-            <ListCard
-              listName={list.listName}
-              idList={list.id}
-              key={list.id}
-              updateList={updateList}
-            />
-          ))}
-        </DraggableFlatList>
+        {lists.map((list) => (
+          <ListCard
+            listName={list.listName}
+            idList={list.id}
+            key={list.id}
+            updateList={updateList}
+            render={getData}
+          />
+        ))}
       </View>
     </View>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
   Button,
@@ -10,10 +11,20 @@ import { themes } from "../../userTemplates/mainUserTemplates";
 import Icon from "react-native-vector-icons/Ionicons";
 import Task from "./taskComponent";
 import { db } from "../../../../../firebase";
-import { doc, getDocs, orderBy, collection, addDoc } from "firebase/firestore";
+import {
+  doc,
+  query,
+  getDocs,
+  orderBy,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import uuid from "react-native-uuid";
+import ListSettingMenu from "./listSettingMenu";
 
-const ListCard = ({ idList, listName, updateList }) => {
+const ListCard = ({ idList, listName, updateList, render }) => {
   /*Configuracion Theme */
   const themeSelect = themes[1];
   const configTheme = {
@@ -27,7 +38,7 @@ const ListCard = ({ idList, listName, updateList }) => {
 
   const [values, setValues] = useState("");
   const [tasks, setTasks] = useState([]);
-
+  const [settingActive, setSettingActive] = useState(false);
   /*Funcion de input del titulo actualizacion del nombre de la lista */
   const handleInputChange = (e) => {
     const { value } = e.target;
@@ -45,26 +56,30 @@ const ListCard = ({ idList, listName, updateList }) => {
   const getTasks = async (idList) => {
     try {
       const tasks = [];
-      const querySnapshot = await getDocs(
-        collection(db, "lists", idList, "tasks")
+      const q = query(
+        collection(db, "lists", idList, "tasks"),
+        orderBy("order", "desc")
       );
-      querySnapshot.forEach((doc) => {
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.docs.map((doc) => {
         tasks.push({ ...doc.data(), taskId: doc.id });
       });
-      console.log(tasks);
-      const order = tasks.sort((x, y) => x.taskName.localeCompare(y.taskName));
-      setTasks(order);
+      setTasks(tasks);
     } catch (e) {
       console.log(e);
     }
   };
 
   /*Función Agregar nueva tarea. */
-  const addNewTask = async (idList, tasks) => {
+  const addNewTask = async (idList, tasksName) => {
+    const orderValue = tasks.length + 1;
     try {
       const newTask = {
-        taskName: tasks,
+        taskName: tasksName,
         done: false,
+        order: orderValue,
       };
       const docRef = doc(db, "lists", idList);
       const tasksColl = collection(docRef, "tasks");
@@ -76,6 +91,20 @@ const ListCard = ({ idList, listName, updateList }) => {
     }
   };
 
+  /*Función completar tarea */
+
+  /*Función del menú de la lista: Borrar Lista */
+
+  const deleteList = async (id) => {
+    const q = collection(db, "lists");
+    const list = doc(q, id);
+    try {
+      await deleteDoc(list);
+      render();
+    } catch {
+      console.log("Algo salió mal.");
+    }
+  };
   useEffect(() => {
     getTasks(idList);
   }, []);
@@ -87,6 +116,11 @@ const ListCard = ({ idList, listName, updateList }) => {
         { backgroundColor: configTheme.themeColor },
       ]}
     >
+      <ListSettingMenu
+        active={settingActive}
+        deleteList={deleteList}
+        idList={idList}
+      />
       <View style={styles.titleListSection}>
         <TextInput
           style={{ color: configTheme.iconColor, fontSize: 20 }}
@@ -94,7 +128,7 @@ const ListCard = ({ idList, listName, updateList }) => {
           onChange={handleInputChange}
         />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setSettingActive(!settingActive)}>
           <Icon
             name="ellipsis-horizontal-outline"
             color={configTheme.iconColor}
@@ -116,7 +150,7 @@ const ListCard = ({ idList, listName, updateList }) => {
           return (
             <Task
               style={{ color: configTheme.iconColor }}
-              id={task.taskId}
+              idTask={task.taskId}
               title={task.taskName}
               ifDone={task.done}
               idList={idList}
