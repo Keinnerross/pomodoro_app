@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 265,
     top: 35,
-    zIndex: 1000,
   },
 });
 export default ListSettingMenu;

@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
   TaskCardContainer: {
     width: "31%",
     padding: 15,
-    marginBottom: "3%",
     borderRadius: 6,
   },
 

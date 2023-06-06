@@ -32,13 +32,14 @@ const styles = StyleSheet.create({
   progressBarContainer: {
     width: "100%",
     height: 10,
-    borderRadius: 5,
+    borderRadius: 25,
     backgroundColor: "#E5E5E5",
     overflow: "hidden",
   },
   progressBar: {
     height: "100%",
-    backgroundColor: "#2F80ED",
+    backgroundColor: "#900",
+
   },
 });
 

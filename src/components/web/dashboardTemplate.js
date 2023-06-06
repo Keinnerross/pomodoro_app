@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import SidebarNav from "./SidebarNav/sidebarNav";
 import Header from "./header/header";
 import MainPomodoro from "../general/pomodoro/mainPomodoro";
@@ -36,6 +42,13 @@ const DashboardTemplate = () => {
     setSettingPomoOpen(value);
   };
 
+  /*collapsible Pomodoro Section */
+  const [collPomo, setCollPomo] = useState(true);
+
+  const accordionRunSection = () => {
+    setCollPomo(!collPomo);
+  };
+
   /*Functions Sidebar */
 
   /*Brush */
@@ -65,8 +78,25 @@ const DashboardTemplate = () => {
               </View>
               <View style={styles.appGadgetsContainer}>
                 <View style={styles.appGadgetsSection}>
-                  <Greeting />
-                  <View style={styles.PomoNewsContainer}>
+                  <View style={styles.dropPomoContainer}>
+                    <Greeting />
+                    <TouchableOpacity onPress={() => accordionRunSection()}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontSize: "25px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        V
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={
+                      collPomo ? styles.PomoNewsContainer : { display: "none" }
+                    }
+                  >
                     <MainPomodoro
                       ifOpen={ifOpenPomo}
                       settingConfig={settingResult}
@@ -103,6 +133,8 @@ const styles = StyleSheet.create({
   },
   bgSection: {
     flexDirection: "row",
+    flexWrap: "wrap",
+
     width: "100%",
     height: "100%",
   },
@@ -115,6 +147,11 @@ const styles = StyleSheet.create({
   },
   appModuleSection: {
     minWidth: "90%",
+  },
+
+  dropPomoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   PomoNewsContainer: {
     width: "100%",

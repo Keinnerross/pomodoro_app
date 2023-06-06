@@ -2,9 +2,9 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const ButtonsPomo = ({ playPomo, restPomo, stopPomo }) => {
-  const playIcon = <Icon name="play" size={30} color="#900" />;
-  const reloadIcon = <Icon name="reload" size={30} color="#900" />;
-  const stopIcon = <Icon name="stop" size={30} color="#900" />;
+  const playIcon = <Icon name="play" size={30} color="white" />;
+  const reloadIcon = <Icon name="reload" size={25} color="white" />;
+  const stopIcon = <Icon name="stop" size={25} color="white" />;
 
   const ifRestPomo = () => {
     restPomo(); /*Agregar Condicional */
@@ -19,7 +19,10 @@ const ButtonsPomo = ({ playPomo, restPomo, stopPomo }) => {
       <TouchableOpacity style={styles.button} onPress={() => ifRestPomo()}>
         {reloadIcon}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => playPomo()}>
+      <TouchableOpacity
+        style={[styles.button, { width: 60, height: 60 }]}
+        onPress={() => playPomo()}
+      >
         {playIcon}
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => ifStopPomo()}>
@@ -32,17 +35,18 @@ const ButtonsPomo = ({ playPomo, restPomo, stopPomo }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    gap: "10px",
     alignItems: "center",
     marginVertical: 20,
   },
   button: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#ccc",
+    width: 45,
+    height: 45,
+    backgroundColor: "#900",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 100,
   },
   active: {
     backgroundColor: "#42a5f5",

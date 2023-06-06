@@ -5,8 +5,19 @@ import ButtonsPomo from "./components/buttonsPomodoro";
 import PomoTimer from "./components/pomodoroTimer";
 import CyclePomo from "./components/cyclePomo";
 import ProgressBar from "./components/progressBar";
+import { themes } from "../userTemplates/mainUserTemplates";
 
 const MainPomodoro = ({ settingConfig, ifOpen }) => {
+  /*Configuración del Tema */
+
+  const themeSelect = themes[1];
+
+  const configTheme = {
+    themeColor: themeSelect.themeColor,
+    iconSize: 25,
+    iconColor: themeSelect.iconColor,
+  };
+
   /*Pomodoro Variables*/
 
   const [time, setTime] = useState(1500);
@@ -120,9 +131,14 @@ const MainPomodoro = ({ settingConfig, ifOpen }) => {
   /*********** BARRA DE PROGRESO******** */
 
   return (
-    <View style={styles.pomodoroMainContainer}>
+    <View
+      style={[
+        styles.pomodoroMainContainer,
+        { backgroundColor: configTheme.themeColor },
+      ]}
+    >
       <NavPomodoro updatePomoSession={updatePomoSession} ifOpen={ifOpen} />
-      <PomoTimer time={time} />
+      <PomoTimer time={time} theme={configTheme} />
       <ButtonsPomo
         playPomo={playPomo}
         restPomo={restPomo}
@@ -141,7 +157,7 @@ const MainPomodoro = ({ settingConfig, ifOpen }) => {
 const styles = StyleSheet.create({
   pomodoroMainContainer: {
     width: "65%",
-    backgroundColor: "#fff",
+    borderRadius: 5,
   },
 });
 

@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
 import ListCard from "./components/listCard";
-import DraggableFlatList from "react-native-draggable-flatlist";
 import AddListCard from "./components/addListCard";
 import {
   collection,
@@ -90,11 +89,12 @@ const MainTasks = () => {
 const styles = StyleSheet.create({
   mainTasksContainer: {
     maxWidth: "100%",
-    height: "100%",
+    maxHeight: "500px",
+    overflow: "auto",
   },
   mainTaskSection: {
-    flexWrap: "wrap",
     flexDirection: "row",
+    flexWrap: "wrap",
     gap: "3.5%",
   },
 });

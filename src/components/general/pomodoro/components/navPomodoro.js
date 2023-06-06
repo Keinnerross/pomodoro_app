@@ -26,7 +26,7 @@ const NavPomodoro = ({ updatePomoSession, ifOpen }) => {
         style={styles.settingPomoButton}
         onPress={() => ifOpen(true)}
       >
-        <Ionicons name="settings-outline" size={24} color="white" />
+        <Ionicons name="settings-outline" size={20} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#2A2A2E",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   settingPomoButton: {
     backgroundColor: "#636366",
     borderRadius: 50,
-    padding: 10,
+    padding: 5,
   },
 });
 
