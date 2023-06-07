@@ -123,7 +123,7 @@ const ListCard = ({ idList, listName, updateList, render }) => {
       />
       <View style={styles.titleListSection}>
         <TextInput
-          style={{ color: configTheme.iconColor, fontSize: 20 }}
+          style={[styles.inputTextList, { color: configTheme.iconColor }]}
           defaultValue={listName} /*Por corregir */
           onChange={handleInputChange}
         />
@@ -140,7 +140,7 @@ const ListCard = ({ idList, listName, updateList, render }) => {
       <View style={styles.taskListSection}>
         <View style={styles.addTaskSection}>
           <TextInput
-            style={{ color: configTheme.iconColor }}
+            style={[styles.addTaskInput, { color: configTheme.iconColor }]}
             defaultValue="Add a Task"
             onChange={handleInputTask}
           />
@@ -165,7 +165,8 @@ const ListCard = ({ idList, listName, updateList, render }) => {
 
 const styles = StyleSheet.create({
   TaskCardContainer: {
-    width: "31%",
+    width: 200,
+    height: "100%",
     padding: 15,
     borderRadius: 6,
   },
@@ -173,12 +174,25 @@ const styles = StyleSheet.create({
   titleListSection: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 2,
+    width: "100%",
+  },
+
+  inputTextList: {
+    maxWidth: 120,
+    fontSize: 20,
+  },
+
+  addTaskInput: {
+    maxWidth: 120,
+    fontSize: 16,
   },
 
   addTaskSection: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 5,
   },
 });
 export default ListCard;

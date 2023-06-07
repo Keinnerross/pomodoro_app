@@ -72,7 +72,7 @@ const Task = ({ title, ifDone, idTask, idList, render }) => {
           onValueChange={() => handleCheck(idList, idTask)}
         ></CheckBox>
         <TextInput
-          style={{ color: configTheme.iconColor }}
+          style={[styles.inputTitleTask, { color: configTheme.iconColor }]}
           defaultValue={title}
           onChange={handleInputName}
         />
@@ -100,6 +100,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  inputTitleTask: {
+    width: 120,
   },
 });
 

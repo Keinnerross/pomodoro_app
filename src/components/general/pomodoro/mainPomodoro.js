@@ -144,8 +144,7 @@ const MainPomodoro = ({ settingConfig, ifOpen }) => {
         restPomo={restPomo}
         stopPomo={stopPomo}
       />
-
-      <Text>
+      <Text style={{ color: "white" }}>
         <CyclePomo cyclePomo={cyclePomo} />
         /4 {pomoSession}
       </Text>
@@ -156,8 +155,9 @@ const MainPomodoro = ({ settingConfig, ifOpen }) => {
 
 const styles = StyleSheet.create({
   pomodoroMainContainer: {
-    width: "65%",
-    borderRadius: 5,
+    width: "50%",
+    minWidth: "55%",
+    borderRadius: 9,
   },
 });
 

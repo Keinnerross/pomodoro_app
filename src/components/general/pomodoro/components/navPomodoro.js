@@ -37,17 +37,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 20,
   },
-  navItem: {
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
+
   navText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: 500,
   },
   activeNav: {
     backgroundColor: "#636366",
@@ -55,7 +52,6 @@ const styles = StyleSheet.create({
   settingPomoButton: {
     backgroundColor: "#636366",
     borderRadius: 50,
-    padding: 5,
   },
 });
 

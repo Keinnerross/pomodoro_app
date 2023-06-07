@@ -34,7 +34,7 @@ const AddListCard = ({ addList }) => {
     >
       <TextInput
         style={{ color: configTheme.iconColor }}
-        defaultValue="+ New List"
+        defaultValue="+ New xd"
         onChange={handleInputChange}
       />
       <TouchableOpacity onPress={() => addList(values)}>
@@ -46,11 +46,11 @@ const AddListCard = ({ addList }) => {
 
 const styles = StyleSheet.create({
   addListContainer: {
-    width: "31%",
+    width: "75%",
     height: 50,
-    padding: 15,
-    marginBottom: "3%",
-    borderRadius: 6,
+    padding: 10,
+    marginBottom: 25,
+    borderRadius: 9,
   },
 });
 export default AddListCard;

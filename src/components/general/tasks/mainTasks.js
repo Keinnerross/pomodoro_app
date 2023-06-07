@@ -70,16 +70,19 @@ const MainTasks = () => {
 
   return (
     <View style={styles.mainTasksContainer}>
+      <AddListCard addList={addList} />
+
       <View style={styles.mainTaskSection}>
-        <AddListCard addList={addList} />
         {lists.map((list) => (
-          <ListCard
-            listName={list.listName}
-            idList={list.id}
-            key={list.id}
-            updateList={updateList}
-            render={getData}
-          />
+          <View style={styles.ListCardContainer}>
+            <ListCard
+              listName={list.listName}
+              idList={list.id}
+              key={list.id}
+              updateList={updateList}
+              render={getData}
+            />
+          </View>
         ))}
       </View>
     </View>
@@ -88,14 +91,18 @@ const MainTasks = () => {
 
 const styles = StyleSheet.create({
   mainTasksContainer: {
-    maxWidth: "100%",
+    maxWidth: "1000px",
     maxHeight: "500px",
-    overflow: "auto",
+    overflow: "hidden",
   },
+
+  ListCardContainer: {
+    flex: 1,
+    gap: 1,
+  },
+
   mainTaskSection: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: "3.5%",
   },
 });
 

@@ -8,37 +8,29 @@ const PomoTimer = ({ time, theme }) => {
   };
 
   return (
-    <>
-      <View style={styles.pomodoroContainer}>
-        <Text style={[styles.pomoTimeContainer, { color: theme.iconColor }]}>
-          {showTime(time)}
-        </Text>
-        <Text style={styles.focusWarrior}>Focus Warrior </Text>
-      </View>
-    </>
+    <View style={styles.pomodoroContainer}>
+      <Text style={[styles.pomoTimeContainer, { color: theme.iconColor }]}>
+        {showTime(time)}
+      </Text>
+      <Text style={[styles.focusWarrio, { color: theme.iconColor }]}>
+        Focus Warrior{" "}
+      </Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   pomodoroContainer: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  pomoNav: {},
   pomoTimeContainer: {
-    fontSize: 80,
+    fontSize: 70,
+    fontWeight: 700,
   },
-  cycleView: {
-    fontSize: 30,
-  },
+  
   focusWarrior: {
     fontSize: 20,
-  },
-  pomoBarContainer: {
-    width: 250,
-    height: 20,
-    borderRadius: 10,
   },
 });
 

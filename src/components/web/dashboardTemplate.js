@@ -12,7 +12,6 @@ import MainPomodoro from "../general/pomodoro/mainPomodoro";
 import MainNews from "../general/news/mainNews";
 import MainTasks from "../general/tasks/mainTasks";
 import MainHabits from "../general/habits/mainHabits";
-import Greeting from "../general/others/greeting";
 import SettingsPomodoro from "../general/pomodoro/settingsPomodoro";
 import SelectTheme from "./SidebarNav/components/selectTheme";
 import { themes } from "../general/userTemplates/mainUserTemplates";
@@ -62,9 +61,9 @@ const DashboardTemplate = () => {
       {/*Tengo pensado maejar todas las ventanas de configuracion desde el loyout de sea forma puedo pasar los parametros de setting de manera global y al componente pomodoro */}
       <SelectTheme isActive={activeBrush} />
       <ImageBackground
-        source={{
-          uri: "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-        }}
+        // source={{
+        //   uri: "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        // }}
         style={styles.bgDashboard}
       >
         <View style={styles.bgSection}>
@@ -72,43 +71,36 @@ const DashboardTemplate = () => {
             <SidebarNav theme={themes} ifActive={ifActiveBrush} />
           </View>
           <View style={styles.appModuleContainer}>
+            <View style={styles.HeaderContainer}>
+              <Header />
+            </View>
             <View style={styles.appModuleSection}>
-              <View style={styles.HeaderContainer}>
-                <Header />
-              </View>
               <View style={styles.appGadgetsContainer}>
-                <View style={styles.appGadgetsSection}>
-                  <View style={styles.dropPomoContainer}>
-                    <Greeting />
-                    <TouchableOpacity onPress={() => accordionRunSection()}>
-                      <Text
-                        style={{
-                          color: "white",
-                          fontSize: "25px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        V
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={
-                      collPomo ? styles.PomoNewsContainer : { display: "none" }
-                    }
-                  >
-                    <MainPomodoro
-                      ifOpen={ifOpenPomo}
-                      settingConfig={settingResult}
-                    />
-                    <MainNews />
-                  </View>
-                  <View style={styles.TasksViewContainer}>
-                    <MainTasks />
-                  </View>
+                <View style={styles.dropPomoContainer}>
+                  <TouchableOpacity onPress={() => accordionRunSection()}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: "18px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      V
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-                <View style={styles.HabitsViewContainer}>
-                  <MainHabits />
+                <View
+                  style={
+                    collPomo ? styles.pomodoroContainer : { display: "none" }
+                  }
+                >
+                  <MainPomodoro
+                    ifOpen={ifOpenPomo}
+                    settingConfig={settingResult}
+                  />
+                </View>
+                <View style={styles.TasksViewContainer}>
+                  <MainTasks />
                 </View>
               </View>
             </View>
@@ -127,14 +119,15 @@ const DashboardTemplate = () => {
 const styles = StyleSheet.create({
   bgDashboard: {
     width: "100vw",
+
     minHeight: "100vh",
+    backgroundColor: "#181818",
     // width: "100%",
     // height: "100%",
   },
   bgSection: {
     flexDirection: "row",
     flexWrap: "wrap",
-
     width: "100%",
     height: "100%",
   },
@@ -143,37 +136,26 @@ const styles = StyleSheet.create({
   },
   appModuleContainer: {
     flex: 1,
-    paddingHorizontal: 80,
+    alignItems: "center",
+    // backgroundColor: "red",
   },
+
   appModuleSection: {
-    minWidth: "90%",
+    width: "60%",
+    maxWidth: "60%",
   },
 
   dropPomoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  PomoNewsContainer: {
-    width: "100%",
-    justifyContent: "space-between",
-    flexDirection: "row",
+
+  pomodoroContainer: {
+    alignItems: "center",
   },
 
-  appGadgetsContainer: {
-    maxWidth: "100%",
-    flexDirection: "row",
-  },
-
-  appGadgetsSection: {
-    width: "72%",
-  },
   TasksViewContainer: {
-    width: "100%",
     marginTop: 20,
-  },
-  HabitsViewContainer: {
-    width: "26%",
-    marginLeft: "2%",
   },
 });
 
