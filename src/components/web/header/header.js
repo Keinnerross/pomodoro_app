@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 const Header = () => {
   const iconSize = 25;
-
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerSection}>

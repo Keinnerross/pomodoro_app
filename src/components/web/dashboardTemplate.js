@@ -41,15 +41,7 @@ const DashboardTemplate = () => {
     setSettingPomoOpen(value);
   };
 
-  /*collapsible Pomodoro Section */
-  const [collPomo, setCollPomo] = useState(true);
-
-  const accordionRunSection = () => {
-    setCollPomo(!collPomo);
-  };
-
   /*Functions Sidebar */
-
   /*Brush */
 
   const ifActiveBrush = () => {
@@ -76,24 +68,7 @@ const DashboardTemplate = () => {
             </View>
             <View style={styles.appModuleSection}>
               <View style={styles.appGadgetsContainer}>
-                <View style={styles.dropPomoContainer}>
-                  <TouchableOpacity onPress={() => accordionRunSection()}>
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: "18px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      V
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={
-                    collPomo ? styles.pomodoroContainer : { display: "none" }
-                  }
-                >
+                <View style={styles.pomodoroContainer}>
                   <MainPomodoro
                     ifOpen={ifOpenPomo}
                     settingConfig={settingResult}
@@ -119,7 +94,7 @@ const DashboardTemplate = () => {
 const styles = StyleSheet.create({
   bgDashboard: {
     width: "100vw",
-
+    maxWidth: "100vw",
     minHeight: "100vh",
     backgroundColor: "#181818",
     // width: "100%",
@@ -127,27 +102,25 @@ const styles = StyleSheet.create({
   },
   bgSection: {
     flexDirection: "row",
-    flexWrap: "wrap",
     width: "100%",
     height: "100%",
   },
+  HeaderContainer: {
+    width: "95%",
+  },
+
   sidebarContainer: {
     width: 62,
   },
   appModuleContainer: {
-    flex: 1,
-    alignItems: "center",
     // backgroundColor: "red",
+    flex: 1,
   },
-
-  appModuleSection: {
-    width: "60%",
-    maxWidth: "60%",
-  },
+  appGadgetsContainer: {},
+  appModuleSection: {},
 
   dropPomoContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
   },
 
   pomodoroContainer: {
@@ -155,7 +128,8 @@ const styles = StyleSheet.create({
   },
 
   TasksViewContainer: {
-    marginTop: 20,
+    flex: 1,
+    marginTop: 25,
   },
 });
 

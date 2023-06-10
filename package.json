@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
+    "@react-native-seoul/masonry-list": "^1.4.2",
     "expo": "~48.0.9",
     "expo-cli": "^6.3.7",
     "expo-status-bar": "~1.4.4",
@@ -17,6 +18,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.7",
+    "react-native-draggable-flatlist": "^4.0.1",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-reanimated": "~2.14.4",
     "react-native-sortable-list": "^0.0.25",
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",

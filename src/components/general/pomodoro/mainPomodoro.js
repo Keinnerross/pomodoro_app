@@ -155,8 +155,8 @@ const MainPomodoro = ({ settingConfig, ifOpen }) => {
 
 const styles = StyleSheet.create({
   pomodoroMainContainer: {
-    width: "50%",
-    minWidth: "55%",
+    width: "40%",
+    minWidth: "40%",
     borderRadius: 9,
   },
 });

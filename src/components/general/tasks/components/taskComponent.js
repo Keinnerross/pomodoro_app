@@ -11,7 +11,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const Task = ({ title, ifDone, idTask, idList, render }) => {
+const Task = ({ title, ifDone, idTask, idList }) => {
   const themeSelect = themes[1];
 
   const configTheme = {
@@ -59,9 +59,9 @@ const Task = ({ title, ifDone, idTask, idList, render }) => {
     });
   };
 
-  useEffect(() => {
-    updateCheck(idList, idTask, checkValue);
-  }, [checkValue]);
+  // useEffect(() => {
+  //   updateCheck(idList, idTask, checkValue);
+  // }, [checkValue]);
 
   return (
     <View style={styles.taskContainer}>

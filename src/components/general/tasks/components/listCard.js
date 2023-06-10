@@ -24,7 +24,7 @@ import {
 import uuid from "react-native-uuid";
 import ListSettingMenu from "./listSettingMenu";
 
-const ListCard = ({ idList, listName, updateList, render }) => {
+const ListCard = ({ idList, listName, updateList, deleteLista, tasksDt }) => {
   /*Configuracion Theme */
   const themeSelect = themes[1];
   const configTheme = {
@@ -51,26 +51,28 @@ const ListCard = ({ idList, listName, updateList, render }) => {
     console.log(value);
     setValues(value);
   };
+  // ESTAMOS EL PRUEBAAAA!!!!!!!!!!!!!!!!!
 
-  /*Función Obtener Tareas */
-  const getTasks = async (idList) => {
-    try {
-      const tasks = [];
-      const q = query(
-        collection(db, "lists", idList, "tasks"),
-        orderBy("order", "desc")
-      );
+  // /*Función Obtener Tareas */
+  // const getTasks = async (idList) => {
+  //   try {
+  //     const tasks = [];
+  //     const q = query(
+  //       collection(db, "lists", idList, "tasks"),
+  //       orderBy("order", "desc")
+  //     );
 
-      const querySnapshot = await getDocs(q);
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.docs.map((doc) => {
+  //       tasks.push({ ...doc.data(), taskId: doc.id });
+  //     });
+  //     setTasks(tasks);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-      querySnapshot.docs.map((doc) => {
-        tasks.push({ ...doc.data(), taskId: doc.id });
-      });
-      setTasks(tasks);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // ESTAMOS EL PRUEBAAAA!!!!!!!!!!!!!!!!
 
   /*Función Agregar nueva tarea. */
   const addNewTask = async (idList, tasksName) => {
@@ -84,30 +86,18 @@ const ListCard = ({ idList, listName, updateList, render }) => {
       const docRef = doc(db, "lists", idList);
       const tasksColl = collection(docRef, "tasks");
       await addDoc(tasksColl, newTask);
-      getTasks(idList);
+      // getTasks(idList); PRUEBAA
       console.log(`${newTask} se ha enviado con éxito`);
     } catch (e) {
       console.log("Algo salió mal", e);
     }
   };
 
-  /*Función completar tarea */
-
   /*Función del menú de la lista: Borrar Lista */
 
-  const deleteList = async (id) => {
-    const q = collection(db, "lists");
-    const list = doc(q, id);
-    try {
-      await deleteDoc(list);
-      render();
-    } catch {
-      console.log("Algo salió mal.");
-    }
-  };
-  useEffect(() => {
-    getTasks(idList);
-  }, []);
+  // useEffect(() => {
+  //   getTasks(idList);
+  // }, []); PRUEBA
 
   return (
     <View
@@ -118,7 +108,7 @@ const ListCard = ({ idList, listName, updateList, render }) => {
     >
       <ListSettingMenu
         active={settingActive}
-        deleteList={deleteList}
+        deleteList={deleteLista(idList)}
         idList={idList}
       />
       <View style={styles.titleListSection}>
@@ -146,7 +136,8 @@ const ListCard = ({ idList, listName, updateList, render }) => {
           />
           <Button onPress={() => addNewTask(idList, values)}></Button>
         </View>
-        {tasks.map((task, i) => {
+
+        {tasksDt.map((task, i) => {
           return (
             <Task
               style={{ color: configTheme.iconColor }}
@@ -165,8 +156,7 @@ const ListCard = ({ idList, listName, updateList, render }) => {
 
 const styles = StyleSheet.create({
   TaskCardContainer: {
-    width: 200,
-    height: "100%",
+    width: 250,
     padding: 15,
     borderRadius: 6,
   },

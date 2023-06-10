@@ -46,10 +46,9 @@ const AddListCard = ({ addList }) => {
 
 const styles = StyleSheet.create({
   addListContainer: {
-    width: "75%",
+    width: "60%",
     height: 50,
-    padding: 10,
-    marginBottom: 25,
+    marginBottom: 20,
     borderRadius: 9,
   },
 });
