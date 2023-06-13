@@ -64,29 +64,31 @@ const Task = ({ title, ifDone, idTask, idList }) => {
   // }, [checkValue]);
 
   return (
-    <View style={styles.taskContainer}>
-      <View style={styles.taskTitleSection}>
-        <CheckBox
-          style={{ marginRight: 5 }}
-          value={checkValue}
-          onValueChange={() => handleCheck(idList, idTask)}
-        ></CheckBox>
-        <TextInput
-          style={[styles.inputTitleTask, { color: configTheme.iconColor }]}
-          defaultValue={title}
-          onChange={handleInputName}
-        />
+  
+      <View style={styles.taskContainer}>
+        <View style={styles.taskTitleSection}>
+          <CheckBox
+            style={{ marginRight: 5 }}
+            value={checkValue}
+            onValueChange={() => handleCheck(idList, idTask)}
+          ></CheckBox>
+          <TextInput
+            style={[styles.inputTitleTask, { color: configTheme.iconColor }]}
+            defaultValue={title}
+            onChange={handleInputName}
+          />
+        </View>
+
+        <TouchableOpacity>
+          <Icon
+            name="ellipsis-horizontal-outline"
+            color={configTheme.iconColor}
+            size={16}
+          />
+        </TouchableOpacity>
+        {/* <Text style={{ color: configTheme.iconColor }}>CheckInput</Text> */}
       </View>
 
-      <TouchableOpacity>
-        <Icon
-          name="ellipsis-horizontal-outline"
-          color={configTheme.iconColor}
-          size={16}
-        />
-      </TouchableOpacity>
-      {/* <Text style={{ color: configTheme.iconColor }}>CheckInput</Text> */}
-    </View>
   );
 };
 
@@ -94,7 +96,6 @@ const styles = StyleSheet.create({
   taskContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 3,
   },
   taskTitleSection: {
     flexDirection: "row",

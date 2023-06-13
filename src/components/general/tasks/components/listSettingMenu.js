@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     width: 100,
     padding: 7,
     position: "absolute",
-    left: 265,
-    top: 35,
+    left: 225,
+    top: 28,
+    zIndex: "9000",
   },
 });
 export default ListSettingMenu;

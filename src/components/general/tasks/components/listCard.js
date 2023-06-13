@@ -24,7 +24,14 @@ import {
 import uuid from "react-native-uuid";
 import ListSettingMenu from "./listSettingMenu";
 
-const ListCard = ({ idList, listName, updateList, deleteLista, tasksDt }) => {
+const ListCard = ({
+  idList,
+  listName,
+  // updateList,
+  // deleteLista,
+  tasksDt,
+  // addNewTaskProp,
+}) => {
   /*Configuracion Theme */
   const themeSelect = themes[1];
   const configTheme = {
@@ -74,81 +81,62 @@ const ListCard = ({ idList, listName, updateList, deleteLista, tasksDt }) => {
 
   // ESTAMOS EL PRUEBAAAA!!!!!!!!!!!!!!!!
 
-  /*Función Agregar nueva tarea. */
-  const addNewTask = async (idList, tasksName) => {
-    const orderValue = tasks.length + 1;
-    try {
-      const newTask = {
-        taskName: tasksName,
-        done: false,
-        order: orderValue,
-      };
-      const docRef = doc(db, "lists", idList);
-      const tasksColl = collection(docRef, "tasks");
-      await addDoc(tasksColl, newTask);
-      // getTasks(idList); PRUEBAA
-      console.log(`${newTask} se ha enviado con éxito`);
-    } catch (e) {
-      console.log("Algo salió mal", e);
-    }
-  };
-
-  /*Función del menú de la lista: Borrar Lista */
-
-  // useEffect(() => {
-  //   getTasks(idList);
-  // }, []); PRUEBA
-
   return (
-    <View
-      style={[
-        styles.TaskCardContainer,
-        { backgroundColor: configTheme.themeColor },
-      ]}
-    >
-      <ListSettingMenu
-        active={settingActive}
-        deleteList={deleteLista(idList)}
-        idList={idList}
-      />
-      <View style={styles.titleListSection}>
-        <TextInput
-          style={[styles.inputTextList, { color: configTheme.iconColor }]}
-          defaultValue={listName} /*Por corregir */
-          onChange={handleInputChange}
+    <View style={{ padding: 7 }}>
+      <View
+        style={[
+          styles.TaskCardContainer,
+          { backgroundColor: configTheme.themeColor },
+        ]}
+      >
+        <ListSettingMenu
+          active={settingActive}
+          // deleteList={deleteLista(idList)}
+          idList={idList}
         />
-
-        <TouchableOpacity onPress={() => setSettingActive(!settingActive)}>
-          <Icon
-            name="ellipsis-horizontal-outline"
-            color={configTheme.iconColor}
-            size={16}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.taskListSection}>
-        <View style={styles.addTaskSection}>
+        <View style={styles.titleListSection}>
           <TextInput
-            style={[styles.addTaskInput, { color: configTheme.iconColor }]}
-            defaultValue="Add a Task"
-            onChange={handleInputTask}
+            style={[styles.inputTextList, { color: configTheme.iconColor }]}
+            defaultValue={listName} /*Por corregir */
+            onChange={handleInputChange}
           />
-          <Button onPress={() => addNewTask(idList, values)}></Button>
+
+          <TouchableOpacity onPress={() => setSettingActive(!settingActive)}>
+            <Icon
+              name="ellipsis-horizontal-outline"
+              color={configTheme.iconColor}
+              size={16}
+            />
+          </TouchableOpacity>
         </View>
 
-        {tasksDt.map((task, i) => {
-          return (
-            <Task
-              style={{ color: configTheme.iconColor }}
-              idTask={task.taskId}
-              title={task.taskName}
-              ifDone={task.done}
-              idList={idList}
-              key={task.taskId}
+        <View style={styles.taskListSection}>
+          <View style={styles.addTaskSection}>
+            <TextInput
+              style={[styles.addTaskInput, { color: configTheme.iconColor }]}
+              defaultValue="Add a Task"
+              onChange={handleInputTask}
             />
-          );
-        })}
+            <Button onPress={() => addNewTaskProp(idList, values)}></Button>
+          </View>
+
+          {tasksDt
+            ? tasksDt.map((task, i) => {
+                return (
+                  <Task
+                    style={{ color: configTheme.iconColor }}
+                    idTask={task.taskId}
+                    title={task.taskName}
+                    ifDone={task.done}
+                    idList={idList}
+                    key={task.taskId}
+                  />
+                );
+              })
+            : console.log("noapasaonaa")}
+          {/* Por Corregir el condicional
+           */}
+        </View>
       </View>
     </View>
   );
