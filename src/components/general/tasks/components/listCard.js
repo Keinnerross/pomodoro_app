@@ -27,8 +27,8 @@ import ListSettingMenu from "./listSettingMenu";
 const ListCard = ({
   idList,
   listName,
-  // updateList,
-  // deleteLista,
+  updateList,
+  deleteLista,
   tasksDt,
   // addNewTaskProp,
 }) => {
@@ -79,64 +79,71 @@ const ListCard = ({
   //   }
   // };
 
-  // ESTAMOS EL PRUEBAAAA!!!!!!!!!!!!!!!!
+  // ESTAMOS EN PRUEBAAAA!!!!!!!!!!!!!!!!
+
+  const altura = (Math.floor(Math.random() * 5) + 1) * 100;
+  console.log(altura);
 
   return (
-    <View style={{ padding: 7 }}>
-      <View
-        style={[
-          styles.TaskCardContainer,
-          { backgroundColor: configTheme.themeColor },
-        ]}
-      >
-        <ListSettingMenu
-          active={settingActive}
-          // deleteList={deleteLista(idList)}
-          idList={idList}
+    <View
+      style={[
+        styles.TaskCardContainer,
+        {
+          backgroundColor: configTheme.themeColor,
+          minHeight: altura,
+          height: altura,
+          maxHeight: altura,
+          margin: 6,
+        },
+      ]}
+    >
+      <ListSettingMenu
+        active={settingActive}
+        // deleteList={deleteLista(idList)}
+        idList={idList}
+      />
+      <View style={styles.titleListSection}>
+        <TextInput
+          style={[styles.inputTextList, { color: configTheme.iconColor }]}
+          defaultValue={listName} /*Por corregir */
+          onChange={handleInputChange}
         />
-        <View style={styles.titleListSection}>
-          <TextInput
-            style={[styles.inputTextList, { color: configTheme.iconColor }]}
-            defaultValue={listName} /*Por corregir */
-            onChange={handleInputChange}
+
+        <TouchableOpacity onPress={() => setSettingActive(!settingActive)}>
+          <Icon
+            name="ellipsis-horizontal-outline"
+            color={configTheme.iconColor}
+            size={16}
           />
+        </TouchableOpacity>
+      </View>
 
-          <TouchableOpacity onPress={() => setSettingActive(!settingActive)}>
-            <Icon
-              name="ellipsis-horizontal-outline"
-              color={configTheme.iconColor}
-              size={16}
-            />
-          </TouchableOpacity>
+      <View style={styles.taskListSection}>
+        <View style={styles.addTaskSection}>
+          <TextInput
+            style={[styles.addTaskInput, { color: configTheme.iconColor }]}
+            defaultValue="Add a Task"
+            onChange={handleInputTask}
+          />
+          <Button onPress={() => addNewTaskProp(idList, values)}></Button>
         </View>
 
-        <View style={styles.taskListSection}>
-          <View style={styles.addTaskSection}>
-            <TextInput
-              style={[styles.addTaskInput, { color: configTheme.iconColor }]}
-              defaultValue="Add a Task"
-              onChange={handleInputTask}
-            />
-            <Button onPress={() => addNewTaskProp(idList, values)}></Button>
-          </View>
-
-          {tasksDt
-            ? tasksDt.map((task, i) => {
-                return (
-                  <Task
-                    style={{ color: configTheme.iconColor }}
-                    idTask={task.taskId}
-                    title={task.taskName}
-                    ifDone={task.done}
-                    idList={idList}
-                    key={task.taskId}
-                  />
-                );
-              })
-            : console.log("noapasaonaa")}
-          {/* Por Corregir el condicional
-           */}
-        </View>
+        {tasksDt
+          ? tasksDt.map((task, i) => {
+              return (
+                <Task
+                  style={{ color: configTheme.iconColor }}
+                  idTask={task.taskId}
+                  title={task.taskName}
+                  ifDone={task.done}
+                  idList={idList}
+                  key={task.taskId}
+                />
+              );
+            })
+          : console.log("noapasaonaa")}
+        {/* Por Corregir el condicional
+         */}
       </View>
     </View>
   );
@@ -145,8 +152,8 @@ const ListCard = ({
 const styles = StyleSheet.create({
   TaskCardContainer: {
     width: 250,
+    minWidth: 250,
     padding: 15,
-    borderRadius: 6,
   },
 
   titleListSection: {

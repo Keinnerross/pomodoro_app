@@ -16,7 +16,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import MasonryList from "@react-native-seoul/masonry-list";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { ReactSortable } from "react-sortablejs";
 
 const MainTasks = () => {
   const [lists, setLists] = useState([]);
@@ -156,57 +157,50 @@ const MainTasks = () => {
       reorder(prevTaskArr, source.index, destination.index)
     );
   };
+  const handleSort = (order, sortable, evt) => {
+    setListOrder(order);
+  };
+
+  const CustomComponent = React.forwardRef((props, ref) => {
+    return (
+      <div>
+        <Masonry ref={ref}>{props.children}</Masonry>
+      </div>
+    );
+  });
 
   return (
     <View style={styles.mainTasksContainer}>
       <AddListCard addList={addList} />
-
-      <View style={styles.mainTaskSection}>
-        <DragDropContext
-          onDragEnd={handleDragEnd}
-          direction={"horizontal"}
-          droppableId="lists"
+      <View>
+        <ReactSortable
+          style={{
+            width: 1100,
+            maxWidth: 1100,
+            height: 1500,
+            backgroundColor: "white",
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "column",
+            textAlign: "justify",
+            columnCount: "4",
+          }}
+          list={lists}
+          setList={setLists}
+          animation={200}
         >
-          <Droppable droppableId="lists">
-            {(provided) => (
-              <span {...provided.droppableProps} ref={provided.innerRef}>
-                <MasonryList
-                  numColumns={3}
-                  data={lists}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={(item) => item.id}
-                  renderItem={(item, index) => (
-                    <Draggable
-                      key={item.item.id}
-                      draggableId={item.item.id}
-                      index={item.i}
-                    >
-                      {(provided) => (
-                        <span
-                          style={{ listStyle: "none", padding: 0 }}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <ListCard
-                            listName={item.item.listName}
-                            idList={item.item.id}
-                            key={item.item.id}
-                            tasksDt={item.item.tasks}
-                            // updateList={updateList}
-                            // deleteLista={deletelist}
-                            // addNewTaskProp={addNewTask}
-                          />
-                        </span>
-                      )}
-                    </Draggable>
-                  )}
-                />
-                {provided.placeholder}
-              </span>
-            )}
-          </Droppable>
-        </DragDropContext>
+          {lists.map((item, i) => (
+            <ListCard
+              listName={item.listName}
+              idList={item.id}
+              key={item.id}
+              tasksDt={item.tasks}
+              updateList={updateList}
+              deleteLista={deletelist}
+              addNewTaskProp={addNewTask}
+            />
+          ))}
+        </ReactSortable>
       </View>
     </View>
   );
@@ -214,16 +208,7 @@ const MainTasks = () => {
 
 const styles = StyleSheet.create({
   mainTasksContainer: {
-    width: "100%",
     alignItems: "center",
-  },
-
-  mainTaskSection: {
-    width: " 80%",
-  },
-
-  listContainer: {
-    marginBottom: 25,
   },
 });
 
